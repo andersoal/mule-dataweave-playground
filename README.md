@@ -56,7 +56,7 @@
 1. **Clone the repository**
 
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/andersoal/mule-dataweave-playground
    cd mule-dataweave-playground
    ```
 
@@ -81,7 +81,7 @@ playground/
         │   ├── DateFormatConversionModuleTest.dwl
         │   ├── DateFormatConverstionModuleMapping.dwl
         │   ├── MyMapping.dwl
-        │   └── PlaygroundModuleMapping.dwl             # ⭐ Your main playground mapping
+        │   └── PlaygroundModuleMapping.dwl             # ⭐ Here is the playground
         └── resources/                                  # 📥 Test input data
             ├── DateFormatConverstionModuleMapping/
             │   └── Playground/
@@ -90,6 +90,7 @@ playground/
             └── PlaygroundModuleMapping/
                 └── Playground/
                     └── inputs/
+                        ├── payload.dwl
                         ├── attributes.dwl
                         ├── correlationId.dwl
                         ├── error.dwl
@@ -116,6 +117,9 @@ playground/
 **Location:** `src/main/dw/DateFormatConversionModule.dwl`
 
 Utilities for date and time formatting conversions.
+
+<details>
+<summary>Function Documentation Example</summary>
 
 #### Functions
 
@@ -147,6 +151,7 @@ output application/json
   "timeOnly": "10:30:00 AM"
 }
 ```
+</details>
 
 ---
 
@@ -155,6 +160,9 @@ output application/json
 **Location:** `src/main/dw/MyModule.dwl`
 
 A starter template module for your own development.
+
+<details>
+<summary>Function Documentation Example</summary>
 
 #### Functions
 
@@ -178,6 +186,7 @@ helloWorld()
   "hello": "world"
 }
 ```
+</details>
 
 ---
 
@@ -257,6 +266,68 @@ import * from DateFormatConversionModule
 | `mvn test`                  | Run all tests             |
 | `mvn test -Dtest=MyMapping` | Run specific mapping test |
 | `mvn clean test`            | Clean and run all tests   |
+
+---
+
+<details>
+<summary><strong>🔍 Real-Time Preview with VS Code (DataWeave Extension)</strong></summary>
+
+The **Anypoint Code Builder** extension for VS Code provides real-time preview capabilities for DataWeave mappings.
+
+#### Prerequisites
+
+- 🔧 [Anypoint Code Builder - DataWeave Extension](https://marketplace.visualstudio.com/items?itemName=salesforce.mule-dx-data-weave-client) extension installed or [Anypoint Extension Pack](https://marketplace.visualstudio.com/items?itemName=salesforce.mule-dx-extension-pack)
+- 📄 Input files properly configured in `src/test/resources/<MappingName>/Playground/inputs/`
+
+#### Features
+
+| Feature | Description |
+|---------|-------------|
+| **DataWeave: Run Preview** | Execute your mapping and view output in real-time |
+| **DataWeave: Enable Auto Preview** | Automatically runs preview on every file save |
+| **Preview Output Panel** | See transformation results instantly without running full Maven tests |
+
+#### How to Use
+
+##### 1️⃣ Manual Preview (DataWeave: Run Preview)
+
+1. Open your mapping file (e.g., `src/test/dw/PlaygroundModuleMapping.dwl`)
+2. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac) to open the Command Palette
+3. Type **"DataWeave: Run Preview"** and press Enter
+4. The output will appear in the **DataWeave Output Panel** at the bottom of your screen
+
+##### 2️⃣ Automatic Preview (DataWeave: Enable Auto Preview)
+
+1. Open the Command Palette (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac)
+2. Type **"DataWeave: Enable Auto Preview"** and press Enter
+3. Every time you save your mapping file, the preview will automatically execute
+4. ✅ Perfect for rapid experimentation and debugging!
+
+#### Example Workflow
+
+```
+1. Edit PlaygroundModuleMapping.dwl
+2. Save the file (Ctrl+S)
+3. Auto Preview runs automatically
+4. View output in DataWeave Output Panel
+5. Iterate on your transformation
+```
+
+#### 📝 Tips for Best Results
+
+- ✅ Ensure input files exist in `src/test/resources/<MappingName>/Playground/inputs/`
+- ✅ Use descriptive variable names in `vars.dwl` for clarity
+- ✅ Test edge cases by creating multiple input scenarios
+- ✅ Use `error.dwl` to simulate error handling scenarios
+
+#### 🔗 References
+
+- 📘 [DataWeave Extension Documentation](https://docs.mulesoft.com/dataweave/latest/dataweave-extension)
+- 📘 [DataWeave Extension Plugin Guide](https://docs.mulesoft.com/dataweave/latest/dataweave-extension-plugin)
+- 📘 [DataWeave Testing Framework](https://docs.mulesoft.com/dataweave/latest/dataweave-testing-framework)
+- 📘 [DataWeave Maven Plugin](https://docs.mulesoft.com/dataweave/latest/dataweave-maven-plugin)
+
+</details>
 
 ---
 
