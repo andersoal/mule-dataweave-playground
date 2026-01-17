@@ -8,8 +8,8 @@ var date: DateTime = "2022-06-06T10:00:00" as DateTime
 ---
 "DateFormatConversionModule" describedBy [
     "dateTimeConversion" describedBy [
-        "It should do something" in do {
-            dateTimeConversion(???, ???) must beObject()
+        "It should convert DateTime to specified format" in do {
+            dateTimeConversion(date, "dd-MM-yyyy") must equalTo("06-06-2022")
         },
     ],
 ]
