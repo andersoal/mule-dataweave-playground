@@ -15,10 +15,14 @@
 - [📁 Project Structure](#-project-structure)
 - [📦 Available Modules](#-available-modules)
 - [🧪 Testing](#-testing)
+- [🔍 Live Preview](#-preview-like-playground)
 - [🎯 Usage Examples](#-usage-examples)
 - [🏗️ Creating New Modules](#️-creating-new-modules)
 - [📚 Documentation Standards](#-documentation-standards)
 - [🌐 Publishing to Exchange](#-publishing-to-exchange)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [🔗 Resources](#-resources)
 
 ---
 
@@ -40,6 +44,7 @@
 | 🎮 Mimics Online Playground Experience              | ✅               | ✅           |
 | 🆓 Free and Open Source                             | ✅               | ✅           |
 
+[⬆ Back to Top](#-table-of-contents)
 
 ---
 
@@ -59,6 +64,8 @@
    git clone https://github.com/andersoal/mule-dataweave-playground
    cd mule-dataweave-playground
    ```
+
+[⬆ Back to Top](#-table-of-contents)
 
 ---
 
@@ -107,6 +114,8 @@ playground/
 | Output Panel      | Maven test output / **DataWeave: Run Preview**    |
 | Save Script       | Git commit!                                       |
 |                   |                                                   |
+
+[⬆ Back to Top](#-table-of-contents)
 
 ---
 
@@ -202,6 +211,8 @@ Utilities for Mule runtime property access simulation.
 |----------|-------------|
 | `p(s)` | Property accessor utility |
 
+[⬆ Back to Top](#-table-of-contents)
+
 ---
 
 ### 🎮 PlaygroundModule
@@ -209,6 +220,8 @@ Utilities for Mule runtime property access simulation.
 **Location:** `src/main/dw/PlaygroundModule.dwl`
 
 Your sandbox for experimentation! Add your own functions here.
+
+[⬆ Back to Top](#-table-of-contents)
 
 ---
 
@@ -350,7 +363,7 @@ The **Anypoint Code Builder** extension for VS Code provides real-time preview c
 - 📘 [DataWeave Maven Plugin](https://docs.mulesoft.com/dataweave/latest/dataweave-maven-plugin)
 
 </details>
-
+[⬆ Back to Top](#-table-of-contents)
 ---
 
 ## 🎯 Usage Examples
@@ -393,6 +406,8 @@ output application/json
     customVar: vars.myVariable
 }
 ```
+
+[⬆ Back to Top](#-table-of-contents)
 
 ---
 
@@ -460,6 +475,8 @@ Create input files in `src/test/resources/StringUtilsMapping/Playground/inputs/`
 mvn test -Dtest=StringUtilsMapping
 ```
 
+[⬆ Back to Top](#-table-of-contents)
+
 ---
 
 ## 📚 Documentation Standards
@@ -509,6 +526,8 @@ fun myFunction(param: Type): ReturnType = ...
 | Unit Tests    | PascalCase + `Test` suffix    | `StringUtilsModuleTest.dwl`   |
 | Functions     | camelCase                     | `formatDate()`, `parseJson()` |
 
+[⬆ Back to Top](#-table-of-contents)
+
 ---
 
 ## 🌐 Publishing to Exchange
@@ -547,6 +566,8 @@ Uncomment the Exchange configuration in `pom.xml`:
 ```bash
 mvn deploy -DorgId=your-org-id
 ```
+
+[⬆ Back to Top](#-table-of-contents)
 
 ---
 
