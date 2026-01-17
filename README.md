@@ -214,6 +214,9 @@ Your sandbox for experimentation! Add your own functions here.
 
 ## 🧪 Testing
 
+<details>
+<summary><strong>🧪 Testing Strategies</strong></summary>
+
 This project supports **two testing approaches**, mirroring how you'd experiment in the online playground:
 
 ### 1️⃣ Integration Tests (Mapping Tests)
@@ -282,7 +285,11 @@ Open the HTML file in your browser to view:
 - 📝 Detailed test output and assertions
 - 🔍 Error messages and stack traces (if any)
 
+</details>
+
 ---
+
+### 🔍 Preview like Playground
 
 <details>
 <summary><strong>🔍 Real-Time Preview with VS Code (DataWeave Extension)</strong></summary>
