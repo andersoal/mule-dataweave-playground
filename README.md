@@ -44,7 +44,7 @@
 | 🎮 Mimics Online Playground Experience              | ✅               | ✅           |
 | 🆓 Free and Open Source                             | ✅               | ✅           |
 
-[⬆ Back to Top](#-table-of-contents)
+<div align="right"><a href="#-table-of-contents">⬆️️️️ Back to Top</a></div>
 
 ---
 
@@ -65,7 +65,7 @@
    cd mule-dataweave-playground
    ```
 
-[⬆ Back to Top](#-table-of-contents)
+<div align="right"><a href="#-table-of-contents">⬆️️️️ Back to Top</a></div>
 
 ---
 
@@ -115,7 +115,7 @@ playground/
 | Save Script       | Git commit!                                       |
 |                   |                                                   |
 
-[⬆ Back to Top](#-table-of-contents)
+<div align="right"><a href="#-table-of-contents">⬆️️️️ Back to Top</a></div>
 
 ---
 
@@ -211,7 +211,7 @@ Utilities for Mule runtime property access simulation.
 |----------|-------------|
 | `p(s)` | Property accessor utility |
 
-[⬆ Back to Top](#-table-of-contents)
+<div align="right"><a href="#-table-of-contents">⬆️️️️ Back to Top</a></div>
 
 ---
 
@@ -221,7 +221,7 @@ Utilities for Mule runtime property access simulation.
 
 Your sandbox for experimentation! Add your own functions here.
 
-[⬆ Back to Top](#-table-of-contents)
+<div align="right"><a href="#-table-of-contents">⬆️️️ Back to Top</a></div>
 
 ---
 
@@ -363,7 +363,9 @@ The **Anypoint Code Builder** extension for VS Code provides real-time preview c
 - 📘 [DataWeave Maven Plugin](https://docs.mulesoft.com/dataweave/latest/dataweave-maven-plugin)
 
 </details>
-[⬆ Back to Top](#-table-of-contents)
+
+<div align="right"><a href="#-table-of-contents">⬆️️️ Back to Top</a></div>
+
 ---
 
 ## 🎯 Usage Examples
@@ -407,7 +409,7 @@ output application/json
 }
 ```
 
-[⬆ Back to Top](#-table-of-contents)
+<div align="right"><a href="#-table-of-contents">⬆️️️ Back to Top</a></div>
 
 ---
 
@@ -475,7 +477,7 @@ Create input files in `src/test/resources/StringUtilsMapping/Playground/inputs/`
 mvn test -Dtest=StringUtilsMapping
 ```
 
-[⬆ Back to Top](#-table-of-contents)
+<div align="right"><a href="#-table-of-contents">⬆️️️ Back to Top</a></div>
 
 ---
 
@@ -526,7 +528,7 @@ fun myFunction(param: Type): ReturnType = ...
 | Unit Tests    | PascalCase + `Test` suffix    | `StringUtilsModuleTest.dwl`   |
 | Functions     | camelCase                     | `formatDate()`, `parseJson()` |
 
-[⬆ Back to Top](#-table-of-contents)
+<div align="right"><a href="#-table-of-contents">⬆️️️️ Back to Top</a></div>
 
 ---
 
@@ -567,7 +569,7 @@ Uncomment the Exchange configuration in `pom.xml`:
 mvn deploy -DorgId=your-org-id
 ```
 
-[⬆ Back to Top](#-table-of-contents)
+<div align="right"><a href="#-table-of-contents">⬆️️️️️ Back to Top</a></div>
 
 ---
 
