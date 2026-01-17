@@ -267,6 +267,21 @@ import * from DateFormatConversionModule
 | `mvn test -Dtest=MyMapping` | Run specific mapping test |
 | `mvn clean test`            | Clean and run all tests   |
 
+### 📊 Test Reports
+
+After running tests, HTML reports are automatically generated:
+
+```
+target/data-weave-test-reports/
+    └── data-weave-testing-framework-summary.html
+```
+
+Open the HTML file in your browser to view:
+- ✅ Test results summary (passed, failed, ignored)
+- ⏱️ Execution time for each test
+- 📝 Detailed test output and assertions
+- 🔍 Error messages and stack traces (if any)
+
 ---
 
 <details>
