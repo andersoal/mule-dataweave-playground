@@ -53,7 +53,13 @@
 ### Prerequisites
 
 - ☕ **Java 8+** (JDK installed and `JAVA_HOME` configured)
-- 📦 **Maven 3.6+** ([Download](https://maven.apache.org/download.cgi))
+  - You can also use manage multiple versios of JDK with:
+    - [scoop](https://github.com/ScoopInstaller/Java)
+    - [SDKMAN](https://sdkman.io/)
+    - [jabba](https://github.com/shyiko/jabba)
+- 📦 **Maven 3.6+**
+  - You can also use [scoop](https://scoop.sh/) to manage multiple versions.
+  - ([Download](https://maven.apache.org/download.cgi))
 - 🛠️ **IDE** (VS Code with Anypoint Code Builder recommended)
 
 ### Installation
@@ -80,14 +86,12 @@ playground/
     │   ├── dw/                         # 📦 Your DataWeave modules
     │   │   ├── DateFormatConversionModule.dwl
     │   │   ├── Mule.dwl
-    │   │   ├── MyModule.dwl
     │   │   └── PlaygroundModule.dwl
     │   └── resources/                  # 📂 Additional resources
     └── test/
         ├── dw/                         # 🧪 Test mappings & unit tests / 🎮 where the play happens
         │   ├── DateFormatConversionModuleTest.dwl
         │   ├── DateFormatConverstionModuleMapping.dwl
-        │   ├── MyMapping.dwl
         │   └── PlaygroundModuleMapping.dwl             # ⭐ Here is the playground
         └── resources/                                  # 📥 Test input data
             ├── DateFormatConverstionModuleMapping/
@@ -112,7 +116,6 @@ playground/
 | Main Editor Panel | `src/test/dw/*.dwl` mapping files                 |
 | Input Panel       | `src/test/resources/<Mapping>/Playground/inputs/` |
 | Output Panel      | Maven test output / **DataWeave: Run Preview**    |
-| Save Script       | Git commit!                                       |
 |                   |                                                   |
 
 <div align="right"><a href="#-table-of-contents">⬆️️️️ Back to Top</a></div>
@@ -164,40 +167,6 @@ output application/json
 
 ---
 
-### 👋 MyModule
-
-**Location:** `src/main/dw/MyModule.dwl`
-
-A starter template module for your own development.
-
-<details>
-<summary>Function Documentation Example</summary>
-
-#### Functions
-
-| Function | Description |
-|----------|-------------|
-| `helloWorld()` | Returns a simple greeting object |
-
-#### Example Usage
-
-```js,dw,dataweave
-%dw 2.0
-import helloWorld from MyModule
-output application/json
----
-helloWorld()
-```
-
-**Output:**
-```json
-{
-  "hello": "world"
-}
-```
-</details>
-
----
 
 ### 🔧 Mule
 
