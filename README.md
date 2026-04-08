@@ -13,6 +13,7 @@
 - [✨ Features](#-features)
 - [🚀 Getting Started](#-getting-started)
 - [📁 Project Structure](#-project-structure)
+- [🎯 Playground Workflow](#-playground-workflow)
 - [📦 Available Modules](#-available-modules)
 - [🧪 Testing](#-testing)
 - [🔍 Live Preview](#-preview-like-playground)
@@ -53,7 +54,7 @@
 ### Prerequisites
 
 - ☕ **Java 8+** (JDK installed and `JAVA_HOME` configured)
-  - You can also use manage multiple versios of JDK with:
+    - You can also use tools to manage multiple JDK versions:
     - [scoop](https://github.com/ScoopInstaller/Java)
     - [SDKMAN](https://sdkman.io/)
     - [jabba](https://github.com/shyiko/jabba)
@@ -83,25 +84,22 @@ playground/
 ├── 📄 README.md                        # You are here!
 └── src/
     ├── main/
-    │   ├── dw/                         # 📦 Your DataWeave modules
+    │   ├── dw/                         # 📦 Reusable modules and the playground entrypoint
     │   │   ├── DateFormatConversionModule.dwl
     │   │   ├── Mule.dwl
-    │   │   └── PlaygroundModule.dwl
+    │   │   └── main.dwl               # 🎮 Current playground-style script
     │   └── resources/                  # 📂 Additional resources
     └── test/
-        ├── dw/                         # 🧪 Test mappings & unit tests / 🎮 where the play happens
-        │   ├── DateFormatConversionModuleTest.dwl
-        │   ├── DateFormatConverstionModuleMapping.dwl
-        │   └── PlaygroundModuleMapping.dwl             # ⭐ Here is the playground
+        ├── dw/                         # 🧪 Assertion-based DataWeave tests
+        │   └── DateFormatConversionModuleTest.dwl
         └── resources/                                  # 📥 Test input data
             ├── DateFormatConverstionModuleMapping/
             │   └── Playground/
             │       └── inputs/
             │           └── payload.json
-            └── PlaygroundModuleMapping/
+            └── main/
                 └── Playground/
                     └── inputs/
-                        ├── payload.dwl
                         ├── attributes.dwl
                         ├── correlationId.dwl
                         ├── error.dwl
@@ -109,14 +107,35 @@ playground/
                         └── vars.dwl
 ```
 
+## 🎯 Playground Workflow
+
+This repository currently uses [src/main/dw/main.dwl](src/main/dw/main.dwl) as the closest equivalent to the online DataWeave playground.
+
+| Online Playground | Local Project |
+| ----------------- | ------------- |
+| Main Editor Panel | `src/main/dw/main.dwl` |
+| Reusable snippets | `src/main/dw/*.dwl` modules |
+| Input Panel | `src/test/resources/main/Playground/inputs/` |
+| Output Panel | **DataWeave: Run Preview** or Maven test output |
+
+The test resources under `src/test/resources/main/Playground/inputs/` provide sample `payload`, `attributes`, `vars`, `error`, and `correlationId` values that mirror the objects available in the hosted playground experience.
+
+### 🧭 Current Development Flow
+
+1. Edit `src/main/dw/main.dwl` for quick experiments.
+2. Use `Mule::p(...)` from `Mule.dwl` when you need mock property access.
+3. Move reusable logic into dedicated modules under `src/main/dw/`.
+4. Add assertion-based tests under `src/test/dw/` when logic needs regression coverage.
+
 ### 🎯 How It Mirrors the Online Playground
 
 | Online Playground | Local Project                                     |
 | ----------------- | ------------------------------------------------- |
-| Main Editor Panel | `src/test/dw/*.dwl` mapping files                 |
-| Input Panel       | `src/test/resources/<Mapping>/Playground/inputs/` |
-| Output Panel      | Maven test output / **DataWeave: Run Preview**    |
-|                   |                                                   |
+| Quick experimentation | `src/main/dw/main.dwl` + preview inputs |
+| Reusable modules | `src/main/dw/*.dwl` |
+| Automated validation | `src/test/dw/*.dwl` unit tests |
+| Auto Preview with DataWeave Extension | Use **DataWeave: Enable Auto Preview** in VS Code |
+
 
 <div align="right"><a href="#-table-of-contents">⬆️️️️ Back to Top</a></div>
 
@@ -137,7 +156,7 @@ Utilities for date and time formatting conversions.
 
 | Function | Description |
 |----------|-------------|
-| `dateTimeConversion(dateTime, format)` | Converts a DateTime to a formatted string |
+| `dateTimeConversion(dateTime, dateTimeFormat)` | Converts a `DateTime` to a formatted string |
 
 #### Example Usage
 
@@ -178,17 +197,46 @@ Utilities for Mule runtime property access simulation.
 
 | Function | Description |
 |----------|-------------|
-| `p(s)` | Property accessor utility |
+| `p(s)` | Resolves a property value from `properties.yaml` or returns the provided key |
 
 <div align="right"><a href="#-table-of-contents">⬆️️️️ Back to Top</a></div>
 
 ---
 
-### 🎮 PlaygroundModule
+### 🎮 main.dwl
 
-**Location:** `src/main/dw/PlaygroundModule.dwl`
+**Location:** `src/main/dw/main.dwl`
 
-Your sandbox for experimentation! Add your own functions here.
+This is the current playground entrypoint for local experimentation. It emits the same runtime-style objects that are commonly explored in the online playground and demonstrates property lookup through `Mule::p(...)`.
+
+#### What it shows
+
+| Field | Description |
+|-------|-------------|
+| `payload` | Current payload input |
+| `attributes` | Current attributes input |
+| `vars` | Current variables input |
+| `error` | Current error input |
+| `correlationId` | Current correlation id input |
+| `p` | Example property lookup via `Mule::p("example.hello")` |
+| `secure` | Example secure property lookup via `Mule::p("secure::example.secure.property.property")` |
+
+#### Example Usage
+
+```js,dw,dataweave
+%dw 2.9
+output application/json
+---
+{
+    payload: payload,
+    attributes: attributes,
+    vars: vars,
+    error: error,
+    correlationId: correlationId,
+    p: Mule::p("example.hello"),
+    secure: Mule::p("secure::example.secure.property.property")
+}
+```
 
 <div align="right"><a href="#-table-of-contents">⬆️️️ Back to Top</a></div>
 
@@ -199,57 +247,58 @@ Your sandbox for experimentation! Add your own functions here.
 <details>
 <summary><strong>🧪 Testing Strategies</strong></summary>
 
-This project supports **two testing approaches**, mirroring how you'd experiment in the online playground:
+This project currently supports **two complementary workflows**:
 
-### 1️⃣ Integration Tests (Mapping Tests)
+### 1️⃣ Interactive Playground Workflow
 
-These are executable DataWeave scripts with test input data.
+Use `src/main/dw/main.dwl` together with the fixtures in `src/test/resources/main/Playground/inputs/` for fast local experiments and preview-driven development.
 
 **Structure:**
 ```
-src/test/dw/YourMapping.dwl           # Your transformation
-src/test/resources/YourMapping/
+src/main/dw/main.dwl                  # Playground-style transformation
+src/test/resources/main/
     └── Playground/
         └── inputs/
-            ├── payload.json          # Test payload
+            ├── payload.dwl           # Test payload
             ├── attributes.dwl        # Mock attributes
-            └── vars.dwl              # Mock variables
-            └── error.dwl             # Mock error object
-            └── correlationId.dwl     # Mock correlationId using uuid()
+            ├── vars.dwl              # Mock variables
+            ├── error.dwl             # Mock error object
+            └── correlationId.dwl     # Mock correlation id
 ```
 
-**Run all mapping tests:**
-```bash
-mvn test
-```
+Use **DataWeave: Run Preview** in VS Code to execute the script against those inputs.
 
 ### 2️⃣ Unit Tests (Testing Framework)
 
-Use the DataWeave Testing Framework for assertion-based testing.
+Use the DataWeave Testing Framework for assertion-based regression tests.
 
 **Example:** `DateFormatConversionModuleTest.dwl`
 ```js,dw,dataweave
 %dw 2.0
 import * from dw::test::Tests
 import * from dw::test::Asserts
+
 import * from DateFormatConversionModule
+
+var date: DateTime = "2022-06-06T10:00:00" as DateTime
 ---
 "DateFormatConversionModule" describedBy [
     "dateTimeConversion" describedBy [
-        "Should format date correctly" in do {
-            dateTimeConversion(|2024-06-15T14:30:00Z|, "dd/MM/yyyy")
-            must equalTo("15/06/2024")
-        }
+        "It should convert DateTime to specified format" in do {
+            dateTimeConversion(date, "dd-MM-yyyy") must equalTo("06-06-2022")
+        },
     ]
 ]
 ```
+
+The repository also contains fixture data under `src/test/resources/DateFormatConverstionModuleMapping/Playground/inputs/` that can be used as a starting point for mapping-style experiments when you add new executable scripts.
 
 ### 🏃 Running Tests
 
 | Command                     | Description               |
 | --------------------------- | ------------------------- |
 | `mvn test`                  | Run all tests             |
-| `mvn test -Dtest=MyMapping` | Run specific mapping test |
+| `mvn test -Dtest=DateFormatConversionModuleTest` | Run the current unit test |
 | `mvn clean test`            | Clean and run all tests   |
 
 ### 📊 Test Reports
@@ -278,10 +327,12 @@ Open the HTML file in your browser to view:
 
 The **Anypoint Code Builder** extension for VS Code provides real-time preview capabilities for DataWeave mappings.
 
+In this repository, the primary preview target is `src/main/dw/main.dwl`.
+
 #### Prerequisites
 
 - 🔧 [Anypoint Code Builder - DataWeave Extension](https://marketplace.visualstudio.com/items?itemName=salesforce.mule-dx-data-weave-client) extension installed or [Anypoint Extension Pack](https://marketplace.visualstudio.com/items?itemName=salesforce.mule-dx-extension-pack)
-- 📄 Input files properly configured in `src/test/resources/<MappingName>/Playground/inputs/`
+- 📄 Input files configured for the script you want to preview. In this repository, the primary playground inputs live under `src/test/resources/main/Playground/inputs/`.
 
 #### Features
 
@@ -295,7 +346,7 @@ The **Anypoint Code Builder** extension for VS Code provides real-time preview c
 
 ##### 1️⃣ Manual Preview (DataWeave: Run Preview)
 
-1. Open your mapping file (e.g., `src/test/dw/PlaygroundModuleMapping.dwl`)
+1. Open `src/main/dw/main.dwl`
 2. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac) to open the Command Palette
 3. Type **"DataWeave: Run Preview"** and press Enter
 4. The output will appear in the **DataWeave Output Panel** at the bottom of your screen
@@ -310,7 +361,7 @@ The **Anypoint Code Builder** extension for VS Code provides real-time preview c
 #### Example Workflow
 
 ```
-1. Edit PlaygroundModuleMapping.dwl
+1. Edit src/main/dw/main.dwl
 2. Save the file (Ctrl+S)
 3. Auto Preview runs automatically
 4. View output in DataWeave Output Panel
@@ -319,7 +370,7 @@ The **Anypoint Code Builder** extension for VS Code provides real-time preview c
 
 #### 📝 Tips for Best Results
 
-- ✅ Ensure input files exist in `src/test/resources/<MappingName>/Playground/inputs/`
+- ✅ Ensure input files exist in `src/test/resources/main/Playground/inputs/` when previewing `main.dwl`
 - ✅ Use descriptive variable names in `vars.dwl` for clarity
 - ✅ Test edge cases by creating multiple input scenarios
 - ✅ Use `error.dwl` to simulate error handling scenarios
@@ -364,7 +415,7 @@ output application/json
 }
 ```
 
-### Example 3: Working with Mule Variables
+### Example 3: Working with Mule Runtime Objects
 
 ```js,dw,dataweave
 %dw 2.0
@@ -374,7 +425,8 @@ output application/json
     data: payload,
     requestId: correlationId,
     headers: attributes.headers,
-    customVar: vars.myVariable
+    customVar: vars.myVariable,
+    hello: Mule::p("example.hello")
 }
 ```
 
@@ -415,7 +467,7 @@ fun removeWhitespace(text: String): String =
 
 ### Step 2: Create a Test Mapping
 
-Create a test file in `src/test/dw/`:
+Create a test file in `src/test/dw/` when the module needs automated coverage:
 
 ```js,dw,dataweave
 %dw 2.0
@@ -431,7 +483,7 @@ output application/json
 
 ### Step 3: Add Test Input (Optional)
 
-Create input files in `src/test/resources/StringUtilsMapping/Playground/inputs/`:
+Create input files in `src/test/resources/StringUtilsMapping/Playground/inputs/` if the script needs preview fixtures:
 
 ```json
 // payload.json
@@ -512,7 +564,7 @@ Share your modules with others by publishing to Anypoint Exchange!
 
 ```xml
 <server>
-    <id>anypoint-exchange-v3</id>
+    <id>exchange</id>
     <username>your-username</username>
     <password>your-password</password>
 </server>
@@ -520,14 +572,15 @@ Share your modules with others by publishing to Anypoint Exchange!
 
 ### Enable Exchange Publishing
 
-Uncomment the Exchange configuration in `pom.xml`:
+Replace the placeholder organization id in `pom.xml`, then uncomment the Exchange configuration:
 
 ```xml
 <distributionManagement>
     <repository>
-        <id>anypoint-exchange-v3</id>
-        <name>Anypoint Exchange</name>
-        <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${orgId}/maven</url>
+        <id>exchange</id>
+        <name>Exchange Repository</name>
+        <url>https://maven.anypoint.mulesoft.com/api/v3/organizations/${project.groupId}/maven</url>
+        <layout>default</layout>
     </repository>
 </distributionManagement>
 ```
@@ -535,7 +588,7 @@ Uncomment the Exchange configuration in `pom.xml`:
 ### Publish
 
 ```bash
-mvn deploy -DorgId=your-org-id
+mvn deploy -Dproject.groupId=your-organization-id
 ```
 
 <div align="right"><a href="#-table-of-contents">⬆️️️️️ Back to Top</a></div>

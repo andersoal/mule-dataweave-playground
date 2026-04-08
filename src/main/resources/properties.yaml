@@ -1,0 +1,6 @@
+example:
+  hello: Hello, World!
+
+example.secure:
+  property:
+    property: "This is a secure property"
